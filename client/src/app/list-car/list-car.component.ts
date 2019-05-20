@@ -6,6 +6,8 @@ import { JsonPipe } from '@angular/common';
 import { FileService } from '../services/files.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GoogleMapsAPIWrapper, MapsAPILoader } from '@agm/core';
+import { userInfo } from 'os';
+
 @Component({
   selector: 'app-list-car',
   templateUrl: './list-car.component.html',
@@ -19,9 +21,6 @@ export class ListCarComponent implements OnInit {
   filePath;
   oldCar = {};
   geocoder:any;
-
-  latitude;
-  longitude;
   address ;
   user = JSON.parse(localStorage.currentUser);
 
@@ -37,14 +36,7 @@ export class ListCarComponent implements OnInit {
 
   }
 
-  states = [
-    'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia',
-    'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts',
-    'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey',
-    'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island',
-    'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia',
-    'Wisconsin', 'Wyoming'
-];
+
   ngOnInit() {
 
     this.id = this.active.snapshot.params['id'];
@@ -61,30 +53,30 @@ export class ListCarComponent implements OnInit {
           console.log(data);
           this.oldCar =data
           console.log(this.oldCar);
+        //I am not sure whether I commented this or whether it was commented before as well. If your code doesn't work check here
+        //Sorry Roshani :p -Dinithi
          //this.populateCarsDetails(this.oldCar);
          });
+         
+      
     }
 
     this.registerForm = this.formBuilder.group({
       carName: ['', Validators.required],
-      city: ['', [Validators.required]],
-      state: ['', [Validators.required]],
+      carYear : ['', [Validators.required]],
       carPrice: ['', [Validators.required, Validators.pattern('[0-9]*')]],
-      carYear : ['', [Validators.required, Validators.pattern('[0-9]*')]],
-      address2: ['', [Validators.required]],
-      zip: ['', [Validators.required, Validators.pattern('[0-9]*')]],
-      alerts: ['', [Validators.required]],
-      description:['',[Validators.required]],
-      parkingDetails :['',[Validators.required]],
-      features:['',[Validators.required]],
-      dailyDistance: ['', [Validators.required, Validators.pattern('[0-9]*')]],
-      weeklyDistance:['', [Validators.required, Validators.pattern('[0-9]*')]],
-      monthlyDistance:['', [Validators.required, Validators.pattern('[0-9]*')]],
-      milage:['', [Validators.required, Validators.pattern('[0-9]*')]],
-      doors:['', [Validators.required, Validators.pattern('[0-9]*')]],
-      seats:['', [Validators.required, Validators.pattern('[0-9]*')]],
-      fuelType:['',[Validators.required]],
-  });
+      carDescription:['',[Validators.required]],
+      carFeatures:['',[Validators.required]],
+      carDailyDistance: ['', [Validators.required, Validators.pattern('[0-9]*')]],
+      carFuelType:['',[Validators.required]],
+      carDoorCount:['', [Validators.required, Validators.pattern('[0-9]*')]],
+      carSeatCount:['', [Validators.required, Validators.pattern('[0-9]*')]],
+      address: ['', [Validators.required]],
+      city: ['', [Validators.required]],
+      zip:['', [Validators.required, Validators.pattern('[0-9]*')]]
+      
+    });
+  
   }
 
   //Method to delete a listed a car
@@ -103,16 +95,17 @@ export class ListCarComponent implements OnInit {
       console.log(this.registerForm.invalid);
       return;
     }
-    this.address= this.registerForm.get('address2').value + ','+ this.registerForm.get('city').value +','+ this.registerForm.get('state').value + ',' + this.registerForm.get('zip').value
-    console.log(this.address);
+    const address1= this.registerForm.get('address').value + ','+ this.registerForm.get('city').value +','+ this.registerForm.get('zip').value
+    console.log(address1);
 
-    this.getLocation(this.address)
+    //this.getLocation(address1)
     if(this.file){
       console.log(this.user[0]._id);
       this.Files.uploadFile(this.file, this.user[0]._id).then(
         data =>{
         this.filePath = data;
         //alert(this.filePath);
+        console.log('hey this is the path');
         console.log(this.filePath);
         this.createCarObj();
         });
@@ -131,34 +124,37 @@ export class ListCarComponent implements OnInit {
       let car = {
         'carName':  this.registerForm.get('carName').value,
         'carYear':  this.registerForm.get('carYear').value,
-        'userId' :  this.user[0]._id,
+        'carId' :  this.user[0]._id,
         'carImagePath':  this.filePath,
         'carPrice': this.registerForm.get('carPrice').value,
-        'description':  this.registerForm.get('description').value,
-        'features':  this.registerForm.get('features').value,
-        'parkingDetails':  this.registerForm.get('parkingDetails').value,
-        'guidelines':  'NO guidelines',
-        'dailyDistance':  this.registerForm.get('dailyDistance').value,
-        'weeklyDistance':  this.registerForm.get('weeklyDistance').value,
-        'monthlyDistance':  this.registerForm.get('monthlyDistance').value,
-        'milage':   this.registerForm.get('milage').value ,
-        'fuelType':  this.registerForm.get('fuelType').value ,
-        'doorCount':this.registerForm.get('doors').value ,
-        'seatCount': this.registerForm.get('seats').value,
-        'address': this.registerForm.get('address2').value,
+        'description':  this.registerForm.get('carDescription').value,
+        'features':  this.registerForm.get('carFeatures').value,
+        'dailyDistance':  this.registerForm.get('carDailyDistance').value,
+        'fuelType':  this.registerForm.get('carFuelType').value ,
+        'doorCount':this.registerForm.get('carDoorCount').value ,
+        'seatCount': this.registerForm.get('carSeatCount').value,
+        'address': this.registerForm.get('address').value,
         'city': this.registerForm.get('city').value,
-        'state': this.registerForm.get('state').value,
         'zip':this.registerForm.get('zip').value,
-        'latitude': this.latitude,
-        'longitude':this.longitude
+        'userId' : JSON.parse(localStorage.currentUser)[0]._id
        }
       if(this.id){
         console.log("Inside update car");
-        this.carservice.updateCar(car, this.id);
+        this.carservice.updateCar(this.oldCar, this.id);
+        this.router.navigate(['/allCars']).then(()=>{
+          window.location.reload();
+        });
+        
       }
       else{
         console.log("Inside Else");
-      this.carservice.putCar(car);
+        //console.log(JSON.parse(localStorage.currentUser)[0]._id);
+        this.carservice.putCar(car);
+        alert('Successfully added');
+        this.router.navigate(['/allCars']).then(()=>{
+          window.location.reload();
+        });
+        
       }
 
   }
@@ -179,8 +175,7 @@ export class ListCarComponent implements OnInit {
                 console.log(results[0].geometry.bounds.j.l);
                 console.log(results[0].geometry.bounds.l.l);
 
-                this.latitude =results[0].geometry.bounds.j.l
-                this.longitude =results[0].geometry.bounds.l.l
+              
 
       } else {
         alert("Sorry, this search produced no results.");

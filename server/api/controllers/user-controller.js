@@ -1,9 +1,12 @@
+const sms = require('../helpers/sms');
+
 /**
  * Controller for sticky endpoints.
  */
 
 'use strict';
-//import sticky service.
+
+// import sticky service.
 const userService = require('../services/user-service');
 /**
  * Returns a list of stickies in JSON based on the
@@ -12,15 +15,25 @@ const userService = require('../services/user-service');
  * @param {request} {HTTP request object}
  * @param {response} {HTTP response object}
  */
-exports.list = function (request, response) {
-    let callback = function (users) {
-        response.status(200);
-        response.json(users);
-    };
-        
-    userService.search(request.query, callback);
-};      
+exports.list = function(request, response) {
+  const callback = function(users) {
+    response.status(200);
+    response.json(users);
+    // console.log(users);
+  };
 
+  userService.search(request.query, callback);
+};
+/**
+ *
+ * @param {req} {HTTP request object}
+ * @param {res} {HTTP response object}
+ */
+exports.sendSMS = (req, res) => {
+  // const code = req.body.code
+  //   const number = req.body.phone
+  sms.sendSMS('Your verification code is ');
+};
 /**
  * Creates a new sticky with the request JSON and
  * returns sticky JSON object.
@@ -28,15 +41,15 @@ exports.list = function (request, response) {
  * @param {request} {HTTP request object}
  * @param {response} {HTTP response object}
  */
-exports.post = function (request, response) {
-    console.log("In body");
-    console.log(request.body);
-    let newUser = Object.assign({}, request.body),
-        callback = function (user) {
-        response.status(200);
-        response.json(user);
-    };
-    userService.save(newUser, callback);
+exports.post = function(request, response) {
+  console.log('In body');
+  console.log(request.body);
+  const newUser = Object.assign({}, request.body);
+  const callback = function(user) {
+    response.status(200);
+    response.json(user);
+  };
+  userService.save(newUser, callback);
 };
 
 /**
@@ -45,25 +58,25 @@ exports.post = function (request, response) {
  * @param {request} {HTTP request object}
  * @param {response} {HTTP response object}
  */
-exports.put = function (request, response) {
-    let user = Object.assign({}, request.body),
-        callback = function (user) {
-        response.status(200);
-        response.json(user);
-    };
-    user._id = request.params.userId;
-    console.log(user);
-    userService.update(user, callback);
+exports.put = function(request, response) {
+  const user = Object.assign({}, request.body);
+  const callback = function(user) {
+    response.status(200);
+    response.json(user);
+  };
+  user._id = request.params.userId;
+  console.log(user);
+  userService.update(user, callback);
 };
 
 
-exports.find = function (request, response) {
-    let callback = function (user) {
-        response.status(200);
-        response.json(user);
-    };
-    let id = request.params.userId;
-    userService.findById(id, callback);
+exports.find = function(request, response) {
+  const callback = function(user) {
+    response.status(200);
+    response.json(user);
+  };
+  const id = request.params.userId;
+  userService.findById(id, callback);
 };
 
 /**
@@ -72,10 +85,10 @@ exports.find = function (request, response) {
  * @param {request} {HTTP request object}
  * @param {response} {HTTP response object}
  */
-exports.findByEmail = function (request, response) {
-    let callback = function (user) {
-        response.status(200);
-        response.json(user);
-    };
-    userService.findByEmail(request.params.emailId, callback);
+exports.findByEmail = function(request, response) {
+  const callback = function(user) {
+    response.status(200);
+    response.json(user);
+  };
+  userService.findByEmail(request.params.emailId, callback);
 };
