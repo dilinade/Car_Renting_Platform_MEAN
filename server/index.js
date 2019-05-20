@@ -10,7 +10,7 @@ const path = require('path');
 
 mongoose.connect('mongodb://localhost:27017/car_rental',{useNewUrlParser:true},(err)=>{
     if(!err) console.log("Connection succeeded!");
-    else console.log("Connection not successful!");
+    else console.log(err);
 })
 // mongoose.connect('mongodb://admin:admin123@ds137040.mlab.com:37040/car_rental',{useNewUrlParser:true},(err)=>{
 //     if(!err) console.log("Connection succeeded!");
