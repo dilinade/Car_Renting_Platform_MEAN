@@ -6,6 +6,7 @@ import { RegisterComponent } from './register/register.component';
 import {CarDetailsComponent} from './cars/car-details/car-details.component';
 import { from } from 'rxjs';
 import { ListCarComponent } from './list-car/list-car.component';
+import { CarBookingComponent } from './car-booking/car-booking.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PaymentComponent } from './payment/payment.component';
@@ -32,7 +33,7 @@ const routes: Routes = [
   {path: 'allCars', component: AllCarsComponent},
   {path: 'allCars/:id' , component: AllCarsComponent},
   {path: '404', component: NotFoundComponentComponent},
-  
+  {path: 'bookcar/:id' , component: CarBookingComponent},
  {path: '**', redirectTo: '/404'}
 
 ];

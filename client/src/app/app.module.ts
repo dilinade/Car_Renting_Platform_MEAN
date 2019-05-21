@@ -39,6 +39,7 @@ import { CarTripsComponent } from './car-trips/car-trips.component';
 import { AllCarsComponent } from './all-cars/all-cars.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatIconModule,MatFormFieldModule,MatNativeDateModule,MatInputModule} from '@angular/material';
+import { CarBookingComponent } from './car-booking/car-booking.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,6 +61,7 @@ import { MatIconModule,MatFormFieldModule,MatNativeDateModule,MatInputModule} fr
     NotFoundComponentComponent,
     CarTripsComponent,
     AllCarsComponent,
+    CarBookingComponent,
   ],
   imports: [
     MatDatepickerModule,

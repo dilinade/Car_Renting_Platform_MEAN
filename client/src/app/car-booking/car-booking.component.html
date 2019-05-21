@@ -1,0 +1,35 @@
+<app-navbar></app-navbar>
+<div class="container">
+<div class="row">
+  <h5>Confirm your dates</h5>
+  <div class="input-field col s6">
+      <input type="text" class="datepicker" ngModel id="from" name="from" placeholder="From :">
+      <!-- <label for="inputPassword2" class="sr-only">From</label>
+      <input class="form-control" type="datetime-local" value="2011-08-19 10:00:00" ngModel id="from" name="from"> -->
+
+  </div>
+  <div class="input-field col s6">
+    <input type="text" class="datepicker" ngModel id="until" name="until" placeholder="Until :">
+      <!-- <label for="inputPassword2" class="sr-only">Until</label>
+      <input class="form-control" type="datetime-local" value="2011-08-19 10:00:00" ngModel id="until" name="until"> -->
+    </div>
+</div>
+<div class="row">
+        <div class="card col s6">
+           
+          <div class="card-image">
+              <img class="card-img-top" [src]="imgPath" alt="Card image cap">
+              <span class="badge badge-light">Rs. {{price}}<span class="small">/ day</span></span>
+          </div>
+          <div class="card-content">
+              <span class="card-title"><span class="year small" id="year">{{carName}} - {{carYear}}</span></span>
+              <div class="stars"><p> Total Cost : </p></div>
+          </div>
+          <div class="card-action">
+           
+          </div>
+        </div>
+        
+</div>
+
+ </div>

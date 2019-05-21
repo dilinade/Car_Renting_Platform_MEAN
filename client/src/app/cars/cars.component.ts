@@ -51,7 +51,7 @@ export class CarsComponent implements OnInit {
    *
    * @param selectedValues
    * Method:- TO get selected value in the Filter
-   * Author:-Rajat Acharya
+   * 
    */
   onSliderChange(selectedValues: number[]) {
     console.log(selectedValues);
