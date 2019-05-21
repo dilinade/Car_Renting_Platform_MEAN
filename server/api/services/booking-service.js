@@ -3,8 +3,7 @@
  */
 
 'use strict';
-const mongoose = require('mongoose');
-const Booking = mongoose.model('booking');
+
 
 /**
  * Throws error if error object is present.

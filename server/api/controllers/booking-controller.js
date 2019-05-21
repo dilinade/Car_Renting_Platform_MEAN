@@ -5,6 +5,8 @@
 'use strict';
 // import booking service.
 const bookingService = require('../services/booking-service');
+
+const stripe = require('stripe')('sk_test_dVvqzbDsn69niZkiBA8su9vg');
 /**
  * Returns a list of stickies in JSON based on the
  * search parameters.
@@ -20,6 +22,39 @@ exports.list = function(request, response) {
   bookingService.search(request.query, callback);
 };
 
+/**
+ * Returns a list of stickies in JSON based on the
+ * search parameters.
+ *
+ * @param {request} {HTTP request object}
+ * @param {response} {HTTP response object}
+ */
+exports.pay = function(request, response) {
+  stripe.customers
+      .create({
+        email: request.body.email,
+      })
+      .then((customer) => {
+        return stripe.customers.createSource(customer.id, {
+          source: 'tok_visa',
+        });
+      })
+      .then((source) => {
+        return stripe.charges.create({
+          amount: request.body.bookingprice,
+          currency: 'lkr',
+          customer: source.customer,
+        });
+      })
+      .then((charge) => {
+        response.status(200);
+        response.json(charge);
+        // New charge created on a new customer
+      })
+      .catch((err) => {
+        // Deal with an error
+      });
+};
 /**
  * Creates a new booking with the request JSON and
  * returns booking JSON object.
