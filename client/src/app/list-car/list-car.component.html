@@ -33,7 +33,7 @@
             <div class="input-field col s4">
             
               <input type="number" class="form-control" id="inputCarPrice" formControlName="carPrice" placeholder="Car Price" [ngClass]="{ 'is-invalid': submitted && f.carPrice.errors }" [(ngModel)]="oldCar.carPrice" required>
-              <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+              <div *ngIf="submitted && f.carPrice.errors" class="invalid-feedback">
                 <div *ngIf="f.carPrice.errors.required">Rental Price is required</div>
                 <div *ngIf="f.carPrice.errors.pattern">Rental Price should be Number</div>
               </div>  
