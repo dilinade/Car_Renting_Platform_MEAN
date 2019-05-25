@@ -147,6 +147,10 @@ doPayment(payment){
       {
          'email': payment.email,
          'bookingprice': payment.bookingprice,
+         'userId' : payment.userName,
+         'carId' : payment.carId,
+         'startDate' : payment.startDate,
+         'endDate' : payment.endDate,
       })
       .subscribe(
           data => {

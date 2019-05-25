@@ -26,7 +26,7 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'account-settings', component: AccountSettingsComponent},
   {path : 'my-cars', component: MyCarsComponent},
-  {path: 'payment' , component: PaymentComponent},
+  {path: 'payment/:amount/:carId/:start/:end' , component: PaymentComponent},
   {path: 'booking-confirm/:id' , component: BookingConfirmComponent},
   {path: 'bookings', component: BookingsComponent},
   {path: 'car-trips', component: CarTripsComponent},

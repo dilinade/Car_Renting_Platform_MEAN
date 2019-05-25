@@ -1,7 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {DatePipe} from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { DateRangePickerModule } from '@syncfusion/ej2-angular-calendars';
+import { DateRangePickerComponent } from '@syncfusion/ej2-angular-calendars';
 import { CarDetailsComponent } from './cars/car-details/car-details.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { HomeComponent } from './home/home.component';
@@ -62,6 +65,7 @@ import { CarBookingComponent } from './car-booking/car-booking.component';
     CarTripsComponent,
     AllCarsComponent,
     CarBookingComponent,
+    DateRangePickerComponent
   ],
   imports: [
     MatDatepickerModule,
@@ -85,7 +89,7 @@ import { CarBookingComponent } from './car-booking/car-booking.component';
     NpnSliderModule,
     NgbModule
   ],
-  providers: [CarsService, UsersService, MatDatepickerModule,AuthenticationService, FileService,BookingsService,GoogleMapsAPIWrapper],
+  providers: [CarsService, UsersService, MatDatepickerModule,AuthenticationService, FileService,BookingsService,GoogleMapsAPIWrapper,DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
