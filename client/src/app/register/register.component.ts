@@ -75,7 +75,7 @@ export class RegisterComponent implements OnInit {
   }
  openDialog(): void {
    // Uncomment this
-    // this.Users.sendCode(this.code);
+    this.Users.sendCode(this.code);
     const dialogRef = this.dialog.open(CodeDialogComponent, {
       width: '300px',
       data: { code : this.code}
