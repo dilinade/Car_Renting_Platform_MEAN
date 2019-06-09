@@ -84,8 +84,8 @@ payment() {
     const amt = data['amount'] / 100;
     console.log("Booking ID :"+ this.bookingId + " " +"Amount: Rs." + amt);
     // Uncomment below
-    // this.carservice.sendCode("Booking ID :"+ this.bookingId + " " +"Amount: Rs." + amt);
-    // window.location.href = data['receipt_url'];
+    this.carservice.sendCode("Booking ID :"+ this.bookingId + " " +"Amount: Rs." + amt);
+    window.location.href = data['receipt_url'];
   });
 
 
