@@ -1,7 +1,7 @@
 # Car_Renting_Platform_MEAN
 
 
-**Requirements**
+=======================Requirements============================
 1) User registration for customers with a verification process
 
 2) A catalogue of vehicles (its features and specifications) for the customer to go through, A gateway for customers to book or rent vehicles by customizing their needs
